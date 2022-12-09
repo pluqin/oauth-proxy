@@ -9,7 +9,9 @@ export default function code(req: NextApiRequest, res: NextApiResponse) {
 
   const [state, redirectUri] = query.state?.toString().split('|') ?? ['undefined', 'undefined'];
 
-  const redirectUrl = redirectUri + '?' +
+  // because Raycast redirect_url already contains the '?'
+  // so we need to use '&' to continue
+  const redirectUrl = redirectUri + '&' +
     new URLSearchParams({
       code: query.code?.toString() ?? 'undefined',
       state,
